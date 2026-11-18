@@ -1,0 +1,49 @@
+# Danh sách lỗi — SAU người duyệt (v3)
+ảnh đã quét: 203
+
+label_format -> 9 dòng
+missing_labels -> 6 dòng
+second_opinion -> 16 dòng
+
+[WARN ] BOX_HUGE             img_0018.txt:1  dòng 1: diện tích box 0.97 > 0.95
+[WARN ] BOX_HUGE             img_0128.txt:1  dòng 1: diện tích box 0.99 > 0.95
+[WARN ] BOX_HUGE             img_0196.txt:1  dòng 1: diện tích box 0.98 > 0.95
+[WARN ] BOX_TINY             img_0026.txt:6  dòng 6: cạnh ngắn 11.4px < 12px
+[WARN ] BOX_TINY             img_0051.txt:5  dòng 5: cạnh ngắn 8.9px < 12px
+[WARN ] BOX_TINY             img_0161.txt:2  dòng 2: cạnh ngắn 10.3px < 12px
+[WARN ] BOX_TINY             img_0161.txt:3  dòng 3: cạnh ngắn 11.4px < 12px
+[WARN ] BOX_TINY             img_0161.txt:4  dòng 4: cạnh ngắn 11.9px < 12px
+[WARN ] BOX_TINY             img_0183.txt:11  dòng 11: cạnh ngắn 11.8px < 12px
+[WARN ] EMPTY_LABEL          img_0013  file nhãn rỗng: ảnh nền hay thiếu nhãn?
+[WARN ] EMPTY_LABEL          img_0097  file nhãn rỗng: ảnh nền hay thiếu nhãn?
+[WARN ] EMPTY_LABEL          img_0129  file nhãn rỗng: ảnh nền hay thiếu nhãn?
+[WARN ] EMPTY_LABEL          img_0147  file nhãn rỗng: ảnh nền hay thiếu nhãn?
+[WARN ] EMPTY_LABEL          img_0184  file nhãn rỗng: ảnh nền hay thiếu nhãn?
+[WARN ] EMPTY_LABEL          img_0192  file nhãn rỗng: ảnh nền hay thiếu nhãn?
+[WARN ] POSSIBLE_FALSE_POS   img_0014.txt:2  dòng 2: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0022.txt:2  dòng 2: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0068.txt:8  dòng 8: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0075.txt:6  dòng 6: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0091.txt:10  dòng 10: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0124.txt:8  dòng 8: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0131.txt:11  dòng 11: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0177.txt:2  dòng 2: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0180.txt:5  dòng 5: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0189.txt:4  dòng 4: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0191.txt:1  dòng 1: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0206.txt:1  dòng 1: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_FALSE_POS   img_0212.txt:4  dòng 4: box nhãn không khớp vật nào model thấy
+[WARN ] POSSIBLE_LOOSE_BOX   img_0021  box lỏng (IoU=0.49 < 0.5)
+[WARN ] POSSIBLE_MISSING     img_0183  model thấy vật mà nhãn không có box
+[WARN ] POSSIBLE_WRONG_CLASS img_0078  nghi gán nhầm lớp (IoU=0.92)
+
+## Tổng hợp theo mã
+warn  BOX_HUGE               3
+warn  BOX_TINY               6
+warn  EMPTY_LABEL            6
+warn  POSSIBLE_FALSE_POS     13
+warn  POSSIBLE_LOOSE_BOX     1
+warn  POSSIBLE_MISSING       1
+warn  POSSIBLE_WRONG_CLASS   1
+
+Kết luận: RELEASE — Đạt chuẩn chất lượng: 0 lỗi bắt buộc, tỉ lệ ảnh có cảnh báo 7.88% (16/203 ảnh) < ngưỡng 10.00%

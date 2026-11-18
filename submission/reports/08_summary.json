@@ -1,0 +1,18 @@
+{
+  "verdict": {
+    "decision": "Release",
+    "n_errors": 0,
+    "n_warn_images": 16,
+    "n_images": 203,
+    "warn_ratio": 0.0788,
+    "reasons": [
+      "Đạt chuẩn chất lượng: 0 lỗi bắt buộc, tỉ lệ ảnh có cảnh báo 7.88% (16/203 ảnh) < ngưỡng 10.00%"
+    ]
+  },
+  "reviewed": 80,
+  "budget": 80,
+  "seconds": 8.5,
+  "exported": "C:\\Users\\hanng\\.gemini\\antigravity\\scratch\\K5-L2B-DAY09-NguyenTheTung-2A202603320-AutoQC-Pipeline-Lab\\submission\\export\\clean_v1",
+  "config_sha1": "8213446e4f1e42c7a224de39c9e5d4cf8611e2fb",
+  "review_sim_sha1": "7988ca22827f780a7043a2300490e679a1697154"
+}
