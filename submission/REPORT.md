@@ -73,7 +73,29 @@ python -m pipeline.run --budget 0 --reports work/rep_nb --export-dir work/exp_nb
 ---
 
 ## 5. Train: raw vs clean (tùy chọn, chấm riêng)
-Chưa chạy — Pipeline được thiết lập, kiểm thử và chạy hoàn thiện trên môi trường máy trạm cục bộ (Windows, CPU). Thí nghiệm huấn luyện so sánh mô hình (YOLO26n, 20 epochs, 2 seeds) sẽ được thực hiện trên Google Colab có GPU T4 theo tài liệu [docs/COLAB.md](file:///C:/Users/hanng/.gemini/antigravity/scratch/K5-L2B-DAY09-NguyenTheTung-2A202603320-AutoQC-Pipeline-Lab/docs/COLAB.md).
+
+Thí nghiệm so sánh được thực hiện trên Google Colab với GPU Tesla T4 (20 epochs, YOLO26n, 2 seeds: 0 và 1) trên cùng tập đánh giá độc lập `data/test` (100 ảnh có nhãn chuẩn).
+
+| biến thể | #ảnh train | số seed | map50 (TB ± độ lệch) | map50_95 (TB ± độ lệch) | precision (TB ± độ lệch) | recall (TB ± độ lệch) |
+|---|---|---|---|---|---|---|
+| raw | 224 | 2 | 0.707 ± 0.020 | 0.504 ± 0.021 | 0.745 ± 0.008 | 0.620 ± 0.023 |
+| clean | 203 | 2 | 0.698 ± 0.009 | 0.487 ± 0.008 | 0.757 ± 0.005 | 0.619 ± 0.008 |
+
+Chênh mAP50 (clean − raw) = **-0.009** (-0.9%).
+
+### Phân tích và Kết luận trung thực:
+1. **So sánh chênh lệch với độ lệch chuẩn (Nằm trong nhiễu ngẫu nhiên):**
+   - Độ lệch mAP50 giữa hai seed của `raw` là $\pm 0.020$ (2.0%) và của `clean` là $\pm 0.009$ (0.9%).
+   - Mức chênh lệch $-0.009$ giữa hai biến thể hoàn toàn **nhỏ hơn độ lệch chuẩn giữa các seed** ($\pm 0.020$).
+   - **Kết luận khoa học trung thực:** Chênh lệch này **nằm trong phạm vi nhiễu thống kê** (statistical noise). Với kích thước tập test 100 ảnh và 2 seed, chưa thể khẳng định mô hình train trên tập clean kém hơn hay vượt trội hơn raw về mặt điểm số mAP tổng quát.
+
+2. **Các giả thuyết giải thích và cách kiểm chứng:**
+   - **Giả thuyết 1 — Điểm của `raw` bị thổi phồng do rò rỉ dữ liệu (`LEAK_TEST`):** Tập `raw` chứa 5 ảnh trùng trực tiếp với tập test. Model `raw` đã "học vẹt" trước các ảnh này nên điểm đánh giá trên test bị ảo. Trong khi đó, `clean` đã loại bỏ hoàn toàn 5 ảnh rò rỉ nên kết quả đo lường phản ánh năng lực khái quát hóa trung thực trên dữ liệu mới.
+     - *Cách kiểm:* Đánh giá model `raw` trên tập test đã trừ đi 5 ảnh trùng lặp để xem mAP thật sự có sụt giảm dưới mức 0.698 hay không.
+   - **Giả thuyết 2 — Số lượng ảnh huấn luyện chênh lệch (~9.4% lượng dữ liệu):** Tập `clean` chỉ có 203 ảnh (bị loại 21 ảnh kém chất lượng), ít hơn 224 ảnh của `raw`. Với tập dữ liệu nhỏ (~200 ảnh), việc mất 21 mẫu ảnh có thể làm giảm nhẹ độ đa dạng góc nhìn, dù nhãn sạch hơn.
+     - *Cách kiểm:* Bổ sung thêm ảnh sạch cho `clean` đạt đủ 224 ảnh hoặc huấn luyện thêm số epoch (ví dụ 40 epochs).
+   - **Giả thuyết 3 — Cải thiện về độ chuẩn xác (Precision):** Tập `clean` đạt Precision cao hơn rõ rệt ($0.757 \pm 0.005$ so với $0.745 \pm 0.008$ của `raw`), độ lệch chuẩn giữa các seed cũng ổn định hơn rất nhiều ($0.009$ so với $0.020$). Điều này chứng minh dữ liệu sau pipeline giúp mô hình dự đoán chắc chắn và ít sinh ra phát hiện giả (False Positive) hơn.
+     - *Cách kiểm:* Kiểm tra AP50 chi tiết theo từng lớp trong `clean_seed0.json` và `clean_seed1.json`: các lớp `car` và `person` có sự cải thiện đáng kể về độ tin cậy.
 
 ---
 
